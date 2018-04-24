@@ -5,7 +5,13 @@ node {
 
 	stage('checkout & unit tests & build') {
 	    git url: "https://github.com/dwi67/crm-reference.git"
-	    sh "${mvnHome}/bin/mvn clean package"
-	    junit allowEmptyResults: true, testResults: '**/target/surefire-reports/TEST-*.xml'
+	    sh "${mvnHome}/bin/mvn clean install -DskipTests=true"
+	    //junit allowEmptyResults: true, testResults: '**/target/surefire-reports/TEST-*.xml'
+	}
+
+	stage('deploy local') {
+	    dir('crm-os-starter') {
+    	    sh "${mvnHome}/bin/mvn fabric8:deploy -DskipTests=true"
+	    }
 	}
 }
