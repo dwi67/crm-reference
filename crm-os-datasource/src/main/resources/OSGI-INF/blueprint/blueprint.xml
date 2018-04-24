@@ -13,7 +13,7 @@
   <ext:property-placeholder evaluator="fabric8" placeholder-prefix="$[" placeholder-suffix="]"/>
 
    	<bean id="postgresDataSourceBean" class="org.postgresql.ds.PGSimpleDataSource">
-      	<property name="serverName" value="postgresql.myproject.svc"/>
+      	<property name="serverName" value="[env:DB_HOST_NAME]"/>
       	<property name="portNumber" value="$[env:DB_PORT_NUMBER]"/>
       	<property name="databaseName" value="$[env:DB_PORT_NUMBER]"/>
       	<property name="user" value="$[env:DB_USER]"/>
@@ -21,7 +21,7 @@
   	</bean>
 
    	<bean id="postgresDataSourceBeanXA" class="org.postgresql.ds.PGSimpleDataSource">
-      	<property name="serverName" value="postgresql.myproject.svc"/>
+      	<property name="serverName" value="[env:DB_HOST_NAME]"/>
       	<property name="portNumber" value="$[env:DB_PORT_NUMBER]"/>
       	<property name="databaseName" value="$[env:DB_PORT_NUMBER]"/>
       	<property name="user" value="$[env:DB_USER]"/>

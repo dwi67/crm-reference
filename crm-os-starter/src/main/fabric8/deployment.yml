@@ -5,12 +5,21 @@ spec:
       containers:
         - env:
           - name: DB_HOST_NAME
-            value: postgresql.myproject.svc
+            value: postgresql
           - name: DB_PORT_NUMBER
             value: 5432
           - name: DB_NAME
-            value: customer
+            valueFrom:
+              secretKeyRef:
+                key: database-name
+                name: postgresql
           - name: DB_USER
-            value: admin
+            valueFrom:
+              secretKeyRef:
+                key: database-user
+                name: postgresql
           - name: DB_PASSWORD
-            value: admin
+            valueFrom:
+              secretKeyRef:
+                key: database-password
+                name: postgresql
