@@ -1,0 +1,9 @@
+# 
+# Run script:
+#
+#     	shell:source mvn:${project.groupId}/${project.artifactId}/${project.version}/script/start
+#
+
+#fabric:container-start solution
+
+

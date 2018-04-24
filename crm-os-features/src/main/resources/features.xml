@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<features xmlns="http://karaf.apache.org/xmlns/features/v1.0.0" name="adesso-fuse-repository/${project.version}">
+
+    <!--
+    		add this feature file to the image build to add the application
+    -->
+    
+    <feature name="crm-os-datasource" version="${project.version}">
+        <feature>jpa</feature>
+        <feature>hibernate</feature>
+        <feature>jndi</feature>
+        <feature>camel-amqp</feature>
+        <bundle>mvn:ch.adesso/crm-os-datasource/${project.version}</bundle> 
+        <bundle>mvn:org.postgresql/postgresql/9.4-1203-jdbc42</bundle>
+        <bundle>wrap:mvn:org.apache.derby/derbyclient/10.11.1.1</bundle>
+   </feature> 
+ 
+	<feature name="crm-service" version="${project.version}">
+		<bundle>mvn:ch.adesso/crm-persistence/${project.version}</bundle>
+		<bundle>mvn:ch.adesso/crm-service/${project.version}</bundle>
+	</feature>
+  
+	<feature name="crm-soap" version="${project.version}">
+		<bundle>mvn:ch.adesso/crm-ws/${project.version}</bundle>
+	</feature>
+
+<!-- 
+	<feature name="crm-rest" version="${project.version}">
+		<bundle>mvn:ch.adesso/crm-rs/${project.version}</bundle>
+	</feature>
+
+	<feature name="crm-import" version="${project.version}">
+		<bundle>mvn:ch.adesso/crm-camel/${project.version}</bundle>
+	</feature>    
+-->
+    <feature name="crm-proxy" version="${project.version}">
+        <feature>camel-jetty</feature>
+        <bundle>mvn:ch.adesso/crm-secureproxy/${project.version}</bundle>
+    </feature>
+
+
+</features>

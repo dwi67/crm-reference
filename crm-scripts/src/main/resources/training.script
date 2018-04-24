@@ -1,0 +1,19 @@
+# 
+# Run script against stand alone container:
+#
+#     	shell:source mvn:${project.groupId}/${project.artifactId}/${project.version}/script/training
+#
+
+fabric:create --clean -m 127.0.0.1 -r manualip --wait-for-provisioning
+
+# Import the project profile definitions for local tests
+fabric:profile-import mvn:${project.groupId}/crm-profiles/${project.version}/zip/local
+
+# Update profiles
+#fabric:profile-edit --system org.apache.activemq.SERIALIZABLE_PACKAGES="*" feature-camel-jms
+
+fabric:container-create-child --profile training root child01
+fabric:container-create-child --profile training root child02
+fabric:container-create-child --profile gateway-http root gateway
+
+

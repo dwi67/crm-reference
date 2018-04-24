@@ -1,0 +1,16 @@
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+        - env:
+          - name: DB_HOST_NAME
+            value: postgresql.myproject.svc
+          - name: DB_PORT_NUMBER
+            value: 5432
+          - name: DB_NAME
+            value: customer
+          - name: DB_USER
+            value: admin
+          - name: DB_PASSWORD
+            value: admin

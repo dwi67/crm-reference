@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="88328f00-7bf1-495a-b903-7b3c2dd2110a" activeEnvironment="Default" name="CRM Demo Soap Remote" resourceRoot="" soapui-version="5.2.1" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="ee08aa7f-3984-48c8-a0b7-4c99e02d2908" wsaVersion="NONE" name="CustomerWebServiceServiceSoapBinding" type="wsdl" bindingName="{ch.adesso.crm.ws}CustomerWebServiceServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="http://adch-fuse-demo.adesso.local:8183/cxf/CustomerServiceSOAP?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://adch-fuse-demo.adesso.local:8183/cxf/CustomerServiceSOAP?wsdl"><con:part><con:url>http://adch-fuse-demo.adesso.local:8183/cxf/CustomerServiceSOAP?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="CustomerWebServiceService" targetNamespace="ch.adesso.crm.ws" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="ch.adesso.crm.ws" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http">
+  <wsdl:types>
+    <xs:schema elementFormDefault="unqualified" targetNamespace="ch.adesso.crm.ws" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="customer" type="tns:customer"/>
+      <xs:element name="deleteCustomer" type="tns:deleteCustomer"/>
+      <xs:element name="deleteCustomerResponse" type="tns:deleteCustomerResponse"/>
+      <xs:element name="getCustomerById" type="tns:getCustomerById"/>
+      <xs:element name="getCustomerByIdResponse" type="tns:getCustomerByIdResponse"/>
+      <xs:element name="getCustomers" type="tns:getCustomers"/>
+      <xs:element name="getCustomersResponse" type="tns:getCustomersResponse"/>
+      <xs:element name="saveOrUpdate" type="tns:saveOrUpdate"/>
+      <xs:element name="saveOrUpdateResponse" type="tns:saveOrUpdateResponse"/>
+      <xs:complexType name="getCustomers">
+        <xs:sequence/>
+      </xs:complexType>
+      <xs:complexType name="getCustomersResponse">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:customer"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="customer">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="account" type="xs:string"/>
+          <xs:element minOccurs="0" name="age" type="xs:int"/>
+          <xs:element minOccurs="0" name="cost" type="xs:double"/>
+          <xs:element minOccurs="0" name="id" type="xs:long"/>
+          <xs:element minOccurs="0" name="name" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="saveOrUpdate">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="customer" type="tns:customer"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="saveOrUpdateResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Customer" type="tns:customer"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="deleteCustomer">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="id" type="xs:long"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="deleteCustomerResponse">
+        <xs:sequence/>
+      </xs:complexType>
+      <xs:complexType name="getCustomerById">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="id" type="xs:long"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="getCustomerByIdResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Customer" type="tns:customer"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getCustomers">
+    <wsdl:part element="tns:getCustomers" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getCustomersResponse">
+    <wsdl:part element="tns:getCustomersResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getCustomerById">
+    <wsdl:part element="tns:getCustomerById" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="saveOrUpdateResponse">
+    <wsdl:part element="tns:saveOrUpdateResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="saveOrUpdate">
+    <wsdl:part element="tns:saveOrUpdate" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteCustomerResponse">
+    <wsdl:part element="tns:deleteCustomerResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getCustomerByIdResponse">
+    <wsdl:part element="tns:getCustomerByIdResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteCustomer">
+    <wsdl:part element="tns:deleteCustomer" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ICustomerWebService">
+    <wsdl:operation name="getCustomers">
+      <wsdl:input message="tns:getCustomers" name="getCustomers"></wsdl:input>
+      <wsdl:output message="tns:getCustomersResponse" name="getCustomersResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="saveOrUpdate">
+      <wsdl:input message="tns:saveOrUpdate" name="saveOrUpdate"></wsdl:input>
+      <wsdl:output message="tns:saveOrUpdateResponse" name="saveOrUpdateResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteCustomer">
+      <wsdl:input message="tns:deleteCustomer" name="deleteCustomer"></wsdl:input>
+      <wsdl:output message="tns:deleteCustomerResponse" name="deleteCustomerResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCustomerById">
+      <wsdl:input message="tns:getCustomerById" name="getCustomerById"></wsdl:input>
+      <wsdl:output message="tns:getCustomerByIdResponse" name="getCustomerByIdResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CustomerWebServiceServiceSoapBinding" type="tns:ICustomerWebService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getCustomers">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getCustomers">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getCustomersResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="saveOrUpdate">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="saveOrUpdate">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="saveOrUpdateResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteCustomer">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="deleteCustomer">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="deleteCustomerResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCustomerById">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getCustomerById">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getCustomerByIdResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CustomerWebServiceService">
+    <wsdl:port binding="tns:CustomerWebServiceServiceSoapBinding" name="CustomerWebServicePort">
+      <soap:address location="http://adch-fuse-demo.adesso.local:8183/cxf/CustomerServiceSOAP"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://adch-fuse-demo.adesso.local:8183/cxf/CustomerServiceSOAP</con:endpoint></con:endpoints><con:operation id="55c33044-9d72-4f73-9e39-3927e7715354" isOneWay="false" action="" name="deleteCustomer" bindingOperationName="deleteCustomer" type="Request-Response" outputName="deleteCustomerResponse" inputName="deleteCustomer" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="6a47c6e7-e481-4f09-bb78-176e4522f87d" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://adch-fuse-demo.adesso.local:8183/cxf/CustomerServiceSOAP</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ch="ch.adesso.crm.ws">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <ch:deleteCustomer>\r
+         <!--Optional:-->\r
+         <id>?</id>\r
+      </ch:deleteCustomer>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="ch.adesso.crm.ws/ICustomerWebService/deleteCustomer"/></con:call></con:operation><con:operation id="6c8ad56a-9c4b-449d-93fd-ab87665aa393" isOneWay="false" action="" name="getCustomerById" bindingOperationName="getCustomerById" type="Request-Response" outputName="getCustomerByIdResponse" inputName="getCustomerById" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="84441294-0cef-44df-94b1-4426c4ef2531" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.177.1.6:9081/cxf/CustomerServiceSOAP</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ch="ch.adesso.crm.ws">\r
+   <soapenv:Header>
+      <user-key xmlns="http//www.adesso.ch">acf0312824bb90158d652f7992f366a8</user-key>
+   </soapenv:Header>
+   <soapenv:Body>\r
+      <ch:getCustomerById>\r
+         <!--Optional:-->\r
+         <id>469819</id>\r
+      </ch:getCustomerById>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="ch.adesso.crm.ws/ICustomerWebService/getCustomerById"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="3e03f361-7138-4c3d-9295-75ef6f05751f" isOneWay="false" action="" name="getCustomers" bindingOperationName="getCustomers" type="Request-Response" outputName="getCustomersResponse" inputName="getCustomers" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="fa0d2cfe-ad90-4666-97b5-ab4daafd4a89" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://adch-fuse-demo.adesso.local:8183/cxf/CustomerServiceSOAP</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ch="ch.adesso.crm.ws">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <ch:getCustomers/>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="ch.adesso.crm.ws/ICustomerWebService/getCustomers"/></con:call></con:operation><con:operation id="15c4dda6-647d-4525-88b2-f242f56bc239" isOneWay="false" action="" name="saveOrUpdate" bindingOperationName="saveOrUpdate" type="Request-Response" outputName="saveOrUpdateResponse" inputName="saveOrUpdate" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="5f07ef31-1af1-435c-b199-e3d7b72bb995" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://adch-fuse-demo.adesso.local:9000/cxf/CustomerServiceSOAP</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ch="ch.adesso.crm.ws">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <ch:saveOrUpdate>\r
+         <!--Optional:-->\r
+         <customer>\r
+            <!--Optional:-->\r
+            <account>1</account>\r
+            <!--Optional:-->\r
+            <age>50</age>\r
+            <!--Optional:-->\r
+            <cost>1000</cost>\r
+            <!--Optional:-->\r
+            <id>1</id>\r
+            <!--Optional:-->\r
+            <name>Hugo Hase</name>\r
+         </customer>\r
+      </ch:saveOrUpdate>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="ch.adesso.crm.ws/ICustomerWebService/saveOrUpdate"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/></con:soapui-project>

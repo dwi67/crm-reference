@@ -1,0 +1,12 @@
+# 
+# Run script:
+#
+#     	shell:source mvn:${project.groupId}/${project.artifactId}/${project.version}/script/shutdown
+#
+
+# Stop all child container
+shell:source mvn:${project.groupId}/${project.artifactId}/${project.version}/script/stop
+
+# Shutdown root container
+shutdown --force
+
