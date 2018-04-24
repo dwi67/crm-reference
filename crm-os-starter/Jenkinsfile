@@ -1,7 +1,11 @@
 def name = "maven";
+def mvnHome = tool name
 
 node {
 
-   def mvnHome = tool name
-   sh "${mvnHome}/bin/mvn clean install"
+	stage('checkout & unit tests & build') {
+	    git url: "https://github.com/dwi67/crm-reference.git"
+	    sh "${mvnHome}/bin/mvn clean package"
+	    junit allowEmptyResults: true, testResults: '**/target/surefire-reports/TEST-*.xml'
+	}
 }
