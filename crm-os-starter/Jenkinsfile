@@ -1,4 +1,7 @@
+def name = "maven";
+
 node {
-    sh "mvn clean install"
+
+   def mvnHome = tool name
+   sh "${mvnHome}/bin/mvn clean install"
 }
- 
