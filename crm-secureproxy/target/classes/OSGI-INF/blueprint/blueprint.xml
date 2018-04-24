@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+    xmlns:camel="http://camel.apache.org/schema/blueprint"
+    xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 
+     	http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd 
+        http://camel.apache.org/schema/blueprint 
+        http://camel.apache.org/schema/blueprint/camel-blueprint.xsd
+        http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0
+        http://aries.apache.org/schemas/blueprint-cm/blueprint-cm-1.1.0.xsd">
+    
+    <cm:property-placeholder persistent-id="ch.adesso.crm.secureproxy.gateway.https" update-strategy="reload">
+        <cm:default-properties>
+            <cm:property name="https.port" value="8443"/>
+            <cm:property name="httpssecureclient.port" value="9443"/>
+            <cm:property name="destination.port" value="8181"/>
+            <cm:property name="destination.host" value="localhost"/>
+            <cm:property name="keyPassword" value="adesso"/>
+            <cm:property name="keyStorePassword" value="adesso"/>
+        </cm:default-properties>
+    </cm:property-placeholder>
+    
+    <!-- Simple ssl configuration -->
+
+    <camel:sslContextParameters id="sslContextParameters">
+        <camel:keyManagers keyPassword="{{keyPassword}}">
+            <camel:keyStore password="{{keyStorePassword}}" resource="classpath:certs/keystore.jks"/>
+        </camel:keyManagers>
+    </camel:sslContextParameters>
+    
+    <!-- Client Certificate configuration -->
+    
+    <camel:sslContextParameters certAlias="training" id="sslClientCertificate">
+    	<camel:serverParameters clientAuthentication="REQUIRE"/>
+        <camel:keyManagers keyPassword="{{keyPassword}}">
+            <camel:keyStore password="{{keyStorePassword}}" resource="classpath:certs/keystore.jks"/>
+        </camel:keyManagers>
+	    <camel:trustManagers>
+	        <camel:keyStore resource="classpath:certs/truststore.jks" password="{{keyStorePassword}}" />
+	    </camel:trustManagers>
+    </camel:sslContextParameters>
+    
+    <bean id="clientCertificateProcessor" class="ch.adesso.crm.camel.ClientCertificateProcessor"/>
+
+    <camelContext id="https-gateway" trace="true" xmlns="http://camel.apache.org/schema/blueprint">
+    
+        <route id="https-proxy">
+            <from id="source-https-proxy" uri="jetty:https://0.0.0.0:{{https.port}}?matchOnUriPrefix=true&amp;sslContextParametersRef=sslContextParameters"/>
+            <to id="destination-https-proxy" uri="jetty:http://{{destination.host}}:{{destination.port}}?bridgeEndpoint=true&amp;throwExceptionOnFailure=false"/>
+        </route>
+
+        <route id="https-proxy-client-certificate">
+            <from id="source-client-certificate" uri="jetty:https://0.0.0.0:{{httpssecureclient.port}}?matchOnUriPrefix=true&amp;sslContextParametersRef=sslClientCertificate"/>
+            <process ref="clientCertificateProcessor"/>
+            <camel:log message="client certificate: ${property.X509CLientCertificateCommonName}"/>
+            <to id="destination-client-certificate" uri="jetty:http://{{destination.host}}:{{destination.port}}?bridgeEndpoint=true&amp;throwExceptionOnFailure=false"/>
+        </route>
+
+    </camelContext>
+</blueprint>
