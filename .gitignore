@@ -1,11 +1,14 @@
-# Compiled class file
-*.class
+# Project files
 .DS_Store
 .classpath
 .project
 *.iml
 .idea
 .settings
+target/
+
+# Compiled class file
+*.class
 
 # Log file
 *.log
