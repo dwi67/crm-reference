@@ -290,6 +290,17 @@
 						</goals>
 					</execution>
 				</executions>
+				<configuration>
+				  <enricher>
+				    <config>
+				      <fmp-service>
+				        <name>crm-service</name>
+				        <port>8181,8778,8443,9443</port>
+				        <multiPort>true</multiPort> 
+				      </fmp-service>
+				    </config>
+				  </enricher>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>

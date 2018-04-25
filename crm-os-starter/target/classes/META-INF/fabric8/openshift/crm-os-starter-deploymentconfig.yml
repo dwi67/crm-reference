@@ -1,0 +1,96 @@
+---
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  annotations:
+    fabric8.io/git-commit: 3613d59e68a08f105f99009bda80a382bd5e166c
+    fabric8.io/iconUrl: img/icons/camel.svg
+    fabric8.io/git-branch: master
+    fabric8.io/metrics-path: dashboard/file/camel-routes.json/?var-project=crm-os-starter&var-version=1.0.0-SNAPSHOT
+  labels:
+    app: crm-os-starter
+    provider: fabric8
+    version: 1.0.0-SNAPSHOT
+    group: ch.adesso
+  name: crm-os-starter
+spec:
+  replicas: 1
+  revisionHistoryLimit: 2
+  selector:
+    app: crm-os-starter
+    provider: fabric8
+    group: ch.adesso
+  strategy:
+    rollingParams:
+      timeoutSeconds: 3600
+    type: Rolling
+  template:
+    metadata:
+      annotations:
+        fabric8.io/git-commit: 3613d59e68a08f105f99009bda80a382bd5e166c
+        fabric8.io/iconUrl: img/icons/camel.svg
+        fabric8.io/git-branch: master
+        fabric8.io/metrics-path: dashboard/file/camel-routes.json/?var-project=crm-os-starter&var-version=1.0.0-SNAPSHOT
+      labels:
+        app: crm-os-starter
+        provider: fabric8
+        version: 1.0.0-SNAPSHOT
+        group: ch.adesso
+    spec:
+      containers:
+      - env:
+        - name: DB_HOST_NAME
+          value: postgresql
+        - name: DB_PORT_NUMBER
+          value: "5432"
+        - name: DB_NAME
+          valueFrom:
+            secretKeyRef:
+              key: database-name
+              name: postgresql
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              key: database-user
+              name: postgresql
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: database-password
+              name: postgresql
+        - name: KUBERNETES_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        image: crm-os-starter:latest
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          httpGet:
+            path: /health-check
+            port: 8181
+          initialDelaySeconds: 180
+        name: karaf
+        ports:
+        - containerPort: 8181
+          name: intermapper
+          protocol: TCP
+        - containerPort: 8778
+          name: jolokia
+          protocol: TCP
+        readinessProbe:
+          httpGet:
+            path: /readiness-check
+            port: 8181
+          initialDelaySeconds: 10
+        securityContext:
+          privileged: false
+  triggers:
+  - type: ConfigChange
+  - imageChangeParams:
+      automatic: true
+      containerNames:
+      - karaf
+      from:
+        kind: ImageStreamTag
+        name: crm-os-starter:latest
+    type: ImageChange

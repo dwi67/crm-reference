@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+	xmlns:cm="http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:tx="http://aries.apache.org/xmlns/transactions/v1.1.0"
+	xmlns:jaxrs="http://cxf.apache.org/blueprint/jaxrs" 
+	xmlns:cxf="http://cxf.apache.org/blueprint/core"
+	xsi:schemaLocation="
+	   http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd
+	   http://aries.apache.org/blueprint/xmlns/blueprint-cm/v1.1.0 http://aries.apache.org/schemas/blueprint-cm/blueprint-cm-1.1.0.xsd
+       http://aries.apache.org/xmlns/transactions/v1.1.0 http://aries.apache.org/schemas/transaction/transactionv11.xsd
+       http://cxf.apache.org/blueprint/jaxrs http://cxf.apache.org/schemas/blueprint/jaxrs.xsd
+       http://cxf.apache.org/blueprint/core http://cxf.apache.org/schemas/blueprint/core.xsd">
+
+   <reference id="customerServiceRef" interface="ch.adesso.crm.service.ICustomerService" />    
+ 
+   <bean id="customerServiceBean" class="ch.adesso.crm.rs.service.impl.CustomerRestService">
+        <property name="customerService" ref="customerServiceRef"/>
+   </bean>
+
+	<cxf:bus>
+		<cxf:features>
+			<cxf:logging />
+		</cxf:features>
+        <cxf:properties>
+          <!--
+            This property needs to be set 'true' in order to give preference to JacksonJsonProvider
+            over the default Jettison provider.
+          -->
+          <entry key="skip.default.json.provider.registration" value="true" />
+        </cxf:properties>		
+	</cxf:bus>
+	
+    <jaxrs:server id="customerService" address="/CustomerServiceREST">
+
+        <jaxrs:serviceBeans>
+            <ref component-id="customerServiceBean" />
+        </jaxrs:serviceBeans>
+
+        <jaxrs:providers>
+           <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider"/>
+        </jaxrs:providers>
+
+		<!-- NOT AVAILABLE FRO TP4 
+        <jaxrs:features>
+            <bean class="org.apache.cxf.jaxrs.swagger.Swagger2Feature">
+				<property name="title" value="adesso CRM REST Customer Service" />
+				<property name="description" value="REST-based Customer Service" />
+                <property name="version" value="1.0.0-SNAPSHOT" />
+            </bean>
+        </jaxrs:features>		
+		 -->
+
+    </jaxrs:server>
+</blueprint>

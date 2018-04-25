@@ -1,0 +1,3 @@
+ch/adesso/crm/camel/ICustomerImporter.class
+ch/adesso/crm/camel/impl/CustomerProcessor.class
+ch/adesso/crm/camel/impl/CustomerImporter.class

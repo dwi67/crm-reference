@@ -1,0 +1,21 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1524636396214
+Build-Jdk: 1.8.0_102
+Built-By: wijngaards
+Bundle-Blueprint: OSGI-INF/blueprint/blueprint.xml
+Bundle-ManifestVersion: 2
+Bundle-Name: crm-service
+Bundle-SymbolicName: crm-service
+Bundle-Version: 1.0.0.SNAPSHOT
+Created-By: Apache Maven Bundle Plugin
+Export-Package: ch.adesso.crm.service;version="1.0.0";uses:="ch.adesso.c
+ rm.persistence.entities",ch.adesso.crm.service.domain;version="1.0.0"
+Export-Service: ch.adesso.crm.service.ICustomerService;osgi.service.blue
+ print.compname=customerBean
+Import-Package: ch.adesso.crm.persistence.dao;version="[1.0,2)",ch.adess
+ o.crm.persistence.entities;version="[1.0,2)",ch.adesso.crm.service;vers
+ ion="[1.0,2)",org.osgi.service.blueprint;version="[1.0.0,2.0.0)"
+Import-Service: ch.adesso.crm.persistence.dao.ICustomerDao;multiple:=fal
+ se
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.8))"
+Tool: Bnd-3.3.0.201609221906

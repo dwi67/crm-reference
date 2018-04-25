@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Licensed to the Apache Software Foundation (ASF) under one or more
+  ~ contributor license agreements. See the NOTICE file distributed with
+  ~ this work for additional information regarding copyright ownership.
+  ~ The ASF licenses this file to You under the Apache License, Version 2.0
+  ~ (the "License"); you may not use this file except in compliance with
+  ~ the License. You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<features name="artemis-2.4.0.amq-710008-redhat-1" xmlns="http://karaf.apache.org/xmlns/features/v1.3.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://karaf.apache.org/xmlns/features/v1.3.0 http://karaf.apache.org/xmlns/features/v1.3.0">
+
+	<feature name="artemis" version="2.4.0.amq-710008-redhat-1" description="Full ActiveMQ Artemis broker with default configuration">
+		<feature>artemis-core</feature>
+		<feature>artemis-amqp</feature>
+		<feature>artemis-stomp</feature>
+		<feature>artemis-mqtt</feature>
+		<feature>artemis-hornetq</feature>
+		<feature>artemis-openwire</feature>
+	</feature>
+
+	<feature name="netty-core" version="4.1.16.Final-redhat-2" description="Netty libraries">
+		<bundle>mvn:io.netty/netty-common/4.1.16.Final-redhat-2</bundle>
+		<bundle>mvn:io.netty/netty-resolver/4.1.16.Final-redhat-2</bundle>
+		<bundle>mvn:io.netty/netty-transport/4.1.16.Final-redhat-2</bundle>
+		<bundle>mvn:io.netty/netty-buffer/4.1.16.Final-redhat-2</bundle>
+		<bundle>mvn:io.netty/netty-codec/4.1.16.Final-redhat-2</bundle>
+		<bundle>mvn:io.netty/netty-handler/4.1.16.Final-redhat-2</bundle>
+		<bundle>mvn:io.netty/netty-transport-native-epoll/4.1.16.Final-redhat-2</bundle>
+		<bundle>mvn:io.netty/netty-transport-native-kqueue/4.1.16.Final-redhat-2</bundle>
+		<bundle>mvn:io.netty/netty-transport-native-unix-common/4.1.16.Final-redhat-2</bundle>
+	</feature>
+
+	<feature name="artemis-core" version="2.4.0.amq-710008-redhat-1" description="ActiveMQ Artemis broker libraries">
+		<feature>transaction</feature>
+		<feature>netty-core</feature>
+		<feature>scr</feature>
+		<configfile finalname="etc/org.apache.activemq.artemis.cfg">mvn:org.apache.activemq/artemis-features/2.4.0.amq-710008-redhat-1/cfg</configfile>
+		<configfile finalname="etc/artemis.xml">mvn:org.apache.activemq/artemis-features/2.4.0.amq-710008-redhat-1/xml/artemis</configfile>
+
+		<bundle dependency="true">mvn:org.apache.geronimo.specs/geronimo-jms_2.0_spec/1.0.0.alpha-2-redhat-2</bundle>
+		<bundle dependency="true">mvn:com.google.guava/guava/20.0.0.redhat-1</bundle>
+		<bundle dependency="true">mvn:io.netty/netty-codec-http/4.1.16.Final-redhat-2</bundle>
+		<bundle dependency="true">mvn:commons-beanutils/commons-beanutils/1.9.3.redhat-1</bundle>
+		<bundle dependency="true">mvn:commons-collections/commons-collections/3.2.2.redhat-2</bundle>
+
+		<bundle dependency="true">mvn:org.jboss.logging/jboss-logging/3.3.1.Final-redhat-1</bundle>
+		<bundle dependency="true">mvn:org.jgroups/jgroups/3.6.13.Final-redhat-2</bundle>
+
+		<bundle dependency="true">mvn:org.apache.servicemix.specs/org.apache.servicemix.specs.json-api-1.1/2.9.0</bundle>
+		<bundle>mvn:org.apache.johnzon/johnzon-core/0.9.5.redhat-1</bundle>
+
+		<bundle>mvn:org.apache.activemq/artemis-native/2.4.0.amq-710008-redhat-1</bundle>
+		<bundle>mvn:org.apache.activemq/artemis-server-osgi/2.4.0.amq-710008-redhat-1</bundle>
+	</feature>
+
+	<feature name="artemis-amqp" version="2.4.0.amq-710008-redhat-1" description="ActiveMQ Artemis AMQP protocol libraries">
+		<feature>artemis-core</feature>
+		<bundle>mvn:org.apache.qpid/proton-j/0.22.0.redhat-1</bundle>
+		<bundle>mvn:org.apache.qpid/qpid-jms-client/0.26.0.redhat-1</bundle>
+		<bundle>mvn:org.apache.activemq/artemis-amqp-protocol/2.4.0.amq-710008-redhat-1</bundle>
+	</feature>
+
+	<feature name="artemis-stomp" version="2.4.0.amq-710008-redhat-1" description="ActiveMQ Artemis Stomp protocol libraries">
+		<feature>artemis-core</feature>
+		<bundle>mvn:org.apache.activemq/artemis-stomp-protocol/2.4.0.amq-710008-redhat-1</bundle>
+	</feature>
+
+	<feature name="artemis-mqtt" version="2.4.0.amq-710008-redhat-1" description="ActiveMQ Artemis MQTT protocol libraries">
+		<feature>artemis-core</feature>
+		<bundle dependency="true">mvn:io.netty/netty-codec-mqtt/4.1.16.Final-redhat-2</bundle>
+		<bundle>mvn:org.apache.activemq/artemis-mqtt-protocol/2.4.0.amq-710008-redhat-1</bundle>
+	</feature>
+
+	<feature name="artemis-hornetq" version="2.4.0.amq-710008-redhat-1" description="ActiveMQ Artemis HornetQ protocol libraries">
+		<feature>artemis-core</feature>
+		<bundle>mvn:org.apache.activemq/artemis-hqclient-protocol/2.4.0.amq-710008-redhat-1</bundle>
+		<bundle>mvn:org.apache.activemq/artemis-hornetq-protocol/2.4.0.amq-710008-redhat-1</bundle>
+	</feature>
+
+	<feature name="artemis-openwire" version="2.4.0.amq-710008-redhat-1" description="ActiveMQ Artemis Openwire protocol libraries">
+		<feature>artemis-core</feature>
+		<bundle dependency="true">mvn:org.fusesource.hawtbuf/hawtbuf/1.11</bundle>
+		<bundle>mvn:org.apache.geronimo.specs/geronimo-j2ee-management_1.1_spec/1.0.1</bundle>
+		<bundle>mvn:org.apache.activemq/artemis-openwire-protocol/2.4.0.amq-710008-redhat-1</bundle>
+	</feature>
+
+</features>

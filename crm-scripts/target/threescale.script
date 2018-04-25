@@ -1,0 +1,23 @@
+# 
+# Run script against stand alone container:
+#
+#     	shell:source mvn:ch.adesso/crm-scripts/1.0.0-SNAPSHOT/script/threescale
+#
+
+fabric:create --clean -m 127.0.0.1 -r manualip --wait-for-provisioning
+
+# Import the project profile definitions for local tests
+fabric:profile-import mvn:ch.adesso/crm-profiles/1.0.0-SNAPSHOT/zip/local
+fabric:profile-import mvn:ch.adesso/threescale-gateway-profiles/6.3.0.redhat-262-SNAPSHOT/zip/local
+
+# Update profiles
+#fabric:profile-edit --system org.apache.activemq.SERIALIZABLE_PACKAGES="*" feature-camel-jms
+
+fabric:container-create-child --profile adesso-gateway-threescale root gateway
+fabric:container-create-child --profile adesso-crm-soap --profile adesso-crm-rest root node1
+fabric:container-create-child --profile adesso-crm-soap --profile adesso-crm-rest root node2
+fabric:container-create-child --profile adesso-crm-soap --profile adesso-crm-rest root node3
+fabric:container-create-child --profile adesso-crm-soap --profile adesso-crm-rest root node4
+fabric:container-create-child --profile adesso-crm-import root import
+
+

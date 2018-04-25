@@ -1,0 +1,9 @@
+# 
+# Run script:
+#
+#     	shell:source mvn:ch.adesso/crm-scripts/1.0.0-SNAPSHOT/script/start
+#
+
+#fabric:container-start solution
+
+
