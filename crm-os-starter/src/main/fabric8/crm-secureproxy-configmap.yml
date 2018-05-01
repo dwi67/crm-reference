@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ch.adesso.crm.secureproxy.gateway.https
+data:
+  https.port: '8443'
+  httpssecureclient.port: '9443'
+  destination.port: '8181'
+  destination.host: 'localhost'
+  keyPassword: 'adesso'
+  keyStorePassword: 'adesso'
+  keystoreLocation: '/deployments/karaf/etc/fusecerts/keystore.jks'
+  truststoreLocation: '/deployments/karaf/etc/fusecerts/truststore.jks'

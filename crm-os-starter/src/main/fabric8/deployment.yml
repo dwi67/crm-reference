@@ -23,3 +23,43 @@ spec:
               secretKeyRef:
                 key: database-password
                 name: postgresql
+          - name: PROXY_HTTPS_PORT
+            valueFrom:
+              configMapKeyRef:
+                key: https.port
+                name: ch.adesso.crm.secureproxy.gateway.https
+          - name: PROXY_HTTPSSECURECLIENT_PORT
+            valueFrom:
+              configMapKeyRef:
+                key: httpssecureclient.port
+                name: ch.adesso.crm.secureproxy.gateway.https
+          - name: PROXY_DESTINATION_PORT
+            valueFrom:
+              configMapKeyRef:
+                key: destination.port
+                name: ch.adesso.crm.secureproxy.gateway.https
+          - name: PROXY_DESTINATION_HOST
+            valueFrom:
+              configMapKeyRef:
+                key: destination.host
+                name: ch.adesso.crm.secureproxy.gateway.https
+          - name: PROXY_KEY_PASSWORD
+            valueFrom:
+              configMapKeyRef:
+                key: keyPassword
+                name: ch.adesso.crm.secureproxy.gateway.https
+          - name: PROXY_KEY_STORE_PASSWORD
+            valueFrom:
+              configMapKeyRef:
+                key: keyStorePassword
+                name: ch.adesso.crm.secureproxy.gateway.https
+          - name: PROXY_KEYSTORE_LOCATION
+            valueFrom:
+              configMapKeyRef:
+                key: keystoreLocation
+                name: ch.adesso.crm.secureproxy.gateway.https
+          - name: PROXY_TRUSTSTORE_LOCATION
+            valueFrom:
+              configMapKeyRef:
+                key: truststoreLocation
+                name: ch.adesso.crm.secureproxy.gateway.https

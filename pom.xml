@@ -28,6 +28,7 @@
 		<!-- Karaf openshift modules -->
         <module>crm-os-features</module>
         <module>crm-os-datasource</module>
+        <module>crm-os-starter</module>
     </modules>
 
 </project>

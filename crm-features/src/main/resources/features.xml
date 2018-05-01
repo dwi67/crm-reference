@@ -6,8 +6,6 @@
 
     features:addurl mvn:${project.groupId}/${project.artifactId}/${project.version}/xml/features 
     features:install crm-standalone
-	features:install crm-on-openshift
-
     -->
     
     <feature name="crm-standalone" version="${project.version}">
@@ -17,12 +15,6 @@
         <feature version="${project.version}">crm-soap</feature>
         <feature version="${project.version}">crm-import</feature>
         <feature version="${project.version}">crm-proxy</feature>
-    </feature>
-
-    <feature name="crm-on-openshift" version="${project.version}">
-        <feature version="${project.version}">crm-os-datasource</feature>
-        <feature version="${project.version}">crm-service</feature>
-        <feature version="${project.version}">crm-soap</feature>
     </feature>
 
     <feature name="crm-datasource" version="${project.version}">
@@ -36,18 +28,7 @@
         <bundle>wrap:mvn:org.apache.derby/derbyclient/10.11.1.1</bundle>
     </feature>
     
-    <feature name="crm-os-datasource" version="${project.version}">
-        <feature>jpa</feature>
-        <feature>hibernate</feature>
-        <feature>transaction</feature>
-        <feature>jndi</feature>
-        <feature>connector</feature>
-        <feature>camel-amqp</feature>
-        <bundle>mvn:ch.adesso/crm-os-datasource/${project.version}</bundle>
-        <bundle>mvn:org.postgresql/postgresql/9.4-1203-jdbc42</bundle>
-    </feature>
-
-	<feature name="crm-service" version="${project.version}">
+    <feature name="crm-service" version="${project.version}">
 		<bundle>mvn:ch.adesso/crm-datasource/${project.version}</bundle>
 		<bundle>mvn:ch.adesso/crm-persistence/${project.version}</bundle>
 		<bundle>mvn:ch.adesso/crm-service/${project.version}</bundle>
@@ -66,7 +47,10 @@
 	</feature>    
 
     <feature name="crm-proxy" version="${project.version}">
-        <feature>camel-jetty</feature>
+        <configfile finalname="/etc/fusecerts/keystore.jks" override="true">mvn:ch.adesso/crm-secureproxy/${project.version}/keystore</configfile>
+        <configfile finalname="/etc/fusecerts/truststore.jks" override="true">mvn:ch.adesso/crm-secureproxy/${project.version}/truststore</configfile>
+        <configfile finalname="/etc/ch.adesso.crm.secureproxy.gateway.https.cfg" override="true">mvn:ch.adesso/crm-secureproxy/${project.version}/properties</configfile>
+        <feature>camel-netty4-http</feature>
         <bundle>mvn:ch.adesso/crm-secureproxy/${project.version}</bundle>
     </feature>
 

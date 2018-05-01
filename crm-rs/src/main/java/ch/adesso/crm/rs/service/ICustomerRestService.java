@@ -46,7 +46,7 @@ public interface ICustomerRestService {
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Saves or updates a customer", response = Customer.class)
 	Customer saveOrUpdate(
-			@ApiParam(value = "The customer object that is to be updated or saved", required = true) Customer customer);
+            @ApiParam(value = "The customer object that is to be updated or saved", required = true) Customer customer);
 
 	@DELETE
 	@Path("/{id}")

@@ -24,7 +24,7 @@
 		<bundle>mvn:ch.adesso/crm-ws/${project.version}</bundle>
 	</feature>
 
-<!-- 
+<!--
 	<feature name="crm-rest" version="${project.version}">
 		<bundle>mvn:ch.adesso/crm-rs/${project.version}</bundle>
 	</feature>
@@ -33,8 +33,9 @@
 		<bundle>mvn:ch.adesso/crm-camel/${project.version}</bundle>
 	</feature>    
 -->
+
     <feature name="crm-proxy" version="${project.version}">
-        <feature>camel-jetty</feature>
+        <feature>camel-netty4-http</feature>
         <bundle>mvn:ch.adesso/crm-secureproxy/${project.version}</bundle>
     </feature>
 

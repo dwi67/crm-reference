@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Route
+metadata:
+  name: crm
+spec:
+  port:
+    targetPort: intermapper
+  to:
+    kind: Service
+    name: crm-service

@@ -18,7 +18,7 @@
 	<!-- ******************************************** Custom Properties ******************************************** -->
 	<properties>
 		<jboss.fuse.bom.version>7.0.0.fuse-000163-redhat-2</jboss.fuse.bom.version>
-    		<camel.version>2.21.0.000033-fuse-000001-redhat-1</camel.version>
+		<camel.version>2.21.0.000033-fuse-000001-redhat-1</camel.version>
 
 		<!-- Maven Plugin Versions -->
 		<maven.compiler.plugin.version>3.2</maven.compiler.plugin.version>

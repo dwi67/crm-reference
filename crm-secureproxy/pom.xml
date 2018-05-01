@@ -228,6 +228,38 @@
 					<encoding>${resources.encoding}</encoding>
 				</configuration>
 			</plugin>
+
+            <!-- add properties file to MVN -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>${codehaus.buildhelper.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>attach-features-xml</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>attach-artifact</goal>
+                        </goals>
+                        <configuration>
+                            <artifacts>
+                                <artifact>
+                                    <file>target/classes/properties/ch.adesso.crm.secureproxy.gateway.https.cfg</file>
+                                    <type>properties</type>
+                                </artifact>
+                                <artifact>
+                                    <file>target/classes/certs/keystore.jks</file>
+                                    <type>keystore</type>
+                                </artifact>
+                                <artifact>
+                                    <file>target/classes/certs/truststore.jks</file>
+                                    <type>truststore</type>
+                                </artifact>
+                            </artifacts>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 		</plugins>
 	</build>
 </project>

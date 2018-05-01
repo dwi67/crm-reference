@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Route
+metadata:
+  name: crms
+spec:
+  port:
+    targetPort: https
+  to:
+    kind: Service
+    name: crm-service
+  tls:
+    termination: passthrough

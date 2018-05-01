@@ -11,6 +11,7 @@
         http://aries.apache.org/schemas/blueprint-cm/blueprint-cm-1.1.0.xsd">
     
     <cm:property-placeholder persistent-id="ch.adesso.crm.secureproxy.gateway.https" update-strategy="reload">
+        <!--
         <cm:default-properties>
             <cm:property name="https.port" value="8443"/>
             <cm:property name="httpssecureclient.port" value="9443"/>
@@ -18,14 +19,17 @@
             <cm:property name="destination.host" value="localhost"/>
             <cm:property name="keyPassword" value="adesso"/>
             <cm:property name="keyStorePassword" value="adesso"/>
+            <cm:property name="keystoreLocation" value="/deployments/karaf/etc/fusecerts/keystore.jks"/>
+            <cm:property name="truststoreLocation" value="/deployments/karaf/etc/fusecerts/truststore.jks"/>
         </cm:default-properties>
+        -->
     </cm:property-placeholder>
     
     <!-- Simple ssl configuration -->
 
     <camel:sslContextParameters id="sslContextParameters">
         <camel:keyManagers keyPassword="{{keyPassword}}">
-            <camel:keyStore password="{{keyStorePassword}}" resource="classpath:certs/keystore.jks"/>
+            <camel:keyStore password="{{keyStorePassword}}" resource="{{keystoreLocation}}"/>
         </camel:keyManagers>
     </camel:sslContextParameters>
     
@@ -34,27 +38,29 @@
     <camel:sslContextParameters certAlias="training" id="sslClientCertificate">
     	<camel:serverParameters clientAuthentication="REQUIRE"/>
         <camel:keyManagers keyPassword="{{keyPassword}}">
-            <camel:keyStore password="{{keyStorePassword}}" resource="classpath:certs/keystore.jks"/>
+            <camel:keyStore password="{{keyStorePassword}}" resource="{{keystoreLocation}}"/>
         </camel:keyManagers>
 	    <camel:trustManagers>
-	        <camel:keyStore resource="classpath:certs/truststore.jks" password="{{keyStorePassword}}" />
+	        <camel:keyStore resource="{{truststoreLocation}}" password="{{keyStorePassword}}" />
 	    </camel:trustManagers>
     </camel:sslContextParameters>
     
-    <bean id="clientCertificateProcessor" class="ch.adesso.crm.camel.ClientCertificateProcessor"/>
-
     <camelContext id="https-gateway" trace="true" xmlns="http://camel.apache.org/schema/blueprint">
-    
+
+        <route id="http-proxy">
+            <from id="source-http-proxy" uri="netty4-http:http://0.0.0.0:9999?matchOnUriPrefix=true"/>
+            <to id="destination-http-proxy" uri="netty4-http:http://{{destination.host}}:{{destination.port}}?bridgeEndpoint=true&amp;throwExceptionOnFailure=false"/>
+        </route>
+
         <route id="https-proxy">
-            <from id="source-https-proxy" uri="jetty:https://0.0.0.0:{{https.port}}?matchOnUriPrefix=true&amp;sslContextParametersRef=sslContextParameters"/>
-            <to id="destination-https-proxy" uri="jetty:http://{{destination.host}}:{{destination.port}}?bridgeEndpoint=true&amp;throwExceptionOnFailure=false"/>
+            <from id="source-https-proxy" uri="netty4-http:https://0.0.0.0:{{https.port}}?matchOnUriPrefix=true&amp;ssl=true&amp;sslContextParameters=#sslContextParameters"/>
+            <to id="destination-https-proxy" uri="netty4-http:http://{{destination.host}}:{{destination.port}}?bridgeEndpoint=true&amp;throwExceptionOnFailure=false"/>
         </route>
 
         <route id="https-proxy-client-certificate">
-            <from id="source-client-certificate" uri="jetty:https://0.0.0.0:{{httpssecureclient.port}}?matchOnUriPrefix=true&amp;sslContextParametersRef=sslClientCertificate"/>
-            <process ref="clientCertificateProcessor"/>
-            <camel:log message="client certificate: ${property.X509CLientCertificateCommonName}"/>
-            <to id="destination-client-certificate" uri="jetty:http://{{destination.host}}:{{destination.port}}?bridgeEndpoint=true&amp;throwExceptionOnFailure=false"/>
+            <from id="source-client-certificate" uri="netty4-http:https://0.0.0.0:{{httpssecureclient.port}}?matchOnUriPrefix=true&amp;ssl=true&amp;needClientAuth=true&amp;sslClientCertHeaders=true&amp;sslContextParameters=#sslClientCertificate"/>
+            <to uri="log:ch.adesso.certs?showHeaders=true"/>
+            <to id="destination-client-certificate" uri="netty4-http:http://{{destination.host}}:{{destination.port}}?bridgeEndpoint=true&amp;throwExceptionOnFailure=false"/>
         </route>
 
     </camelContext>

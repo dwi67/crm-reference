@@ -1,3 +1,12 @@
+-- SEQUENCE: public.customer_id_seq
+
+-- DROP SEQUENCE public.customer_id_seq;
+
+CREATE SEQUENCE public.customer_id_seq;
+
+ALTER SEQUENCE public.customer_id_seq
+OWNER TO admin;
+
 -- Table: public.customer
 
 -- DROP TABLE public.customer;
@@ -15,4 +24,4 @@ WITH (
 TABLESPACE pg_default;
 
 ALTER TABLE public.customer
-    OWNER to admin;
+OWNER to admin;

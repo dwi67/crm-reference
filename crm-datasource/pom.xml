@@ -145,15 +145,6 @@
 		</dependencies>
 	</dependencyManagement>
 
-	<dependencies>
-		<!-- 3rd-party dependencies -->
-		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-core</artifactId>
-		</dependency>
-		
-	</dependencies>
-
 	<!-- ******************************************* Build configuration ******************************************* -->
 	<build>
 		<plugins>
