@@ -3,25 +3,29 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://www.osgi.org/xmlns/blueprint/v1.0.0 http://www.osgi.org/xmlns/blueprint/v1.0.0">
 
-    <bean id="dataSourceBean" class="org.apache.derby.jdbc.ClientDataSource">
-        <property name="databaseName" value="testdb"/>
-        <property name="user" value="user" />
-        <property name="password" value="123" />
+    <bean id="postgresDataSourceBean" class="org.postgresql.ds.PGSimpleDataSource">
+        <property name="serverName" value="localhost"/>
+        <property name="portNumber" value="5432"/>
+        <property name="databaseName" value="sampledb"/>
+        <property name="user" value="admin"/>
+        <property name="password" value="admin"/>
     </bean>
 
-    <bean id="dataSourceBeanXA" class="org.apache.derby.jdbc.ClientXADataSource">
-        <property name="databaseName" value="testdb"/>
-        <property name="user" value="user" />
-        <property name="password" value="123" />
+    <bean id="postgresDataSourceBeanXA" class="org.postgresql.ds.PGSimpleDataSource">
+        <property name="serverName" value="localhost"/>
+        <property name="portNumber" value="5432"/>
+        <property name="databaseName" value="sampledb"/>
+        <property name="user" value="admin"/>
+        <property name="password" value="admin"/>
     </bean>
 
-    <service id="dataSourceService" interface="javax.sql.DataSource" ref="dataSourceBean">
+    <service id="dataSourceService" interface="javax.sql.DataSource" ref="postgresDataSourceBean">
         <service-properties>
             <entry key="osgi.jndi.service.name" value="jdbc/sqlDataSource" />
         </service-properties>
     </service>
 
-    <service id="dataSourceServiceXA" interface="javax.sql.DataSource" ref="dataSourceBeanXA">
+    <service id="dataSourceServiceXA" interface="javax.sql.DataSource" ref="postgresDataSourceBeanXA">
         <service-properties>
             <entry key="osgi.jndi.service.name" value="jdbc/xaSqlDataSource" />
             <entry key="aries.xa.name" value="xaSqlDataSource" />
