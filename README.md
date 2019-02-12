@@ -35,10 +35,9 @@ It is required to install the current Red Hat Fuse templates first
         
     ```bash
     oc login -u system:admin
-    BASEURL=https://raw.githubusercontent.com/jboss-fuse/application-templates/application-templates-2.1.fuse-720018-redhat-00001
+    BASEURL=https://raw.githubusercontent.com/jboss-fuse/application-templates/application-templates-2.1.fuse-000099-redhat-5
     oc create -n openshift -f ${BASEURL}/fis-image-streams.json
-    oc create -n openshift -f https://raw.githubusercontent.com/jboss-fuse/application-templates/application-templates-2.1.fuse-720018-redhat-00001/fis-console-namespace-template.json
-    oc create -n openshift -f ${BASEURL}/fuse-apicurito.yml
+    oc create -n openshift -f https://raw.githubusercontent.com/jboss-fuse/application-templates/application-templates-2.1.fuse-000099-redhat-5/fis-console-namespace-template.json
     ```
 
 ## Instalation of the PostgreSQL database
@@ -78,7 +77,7 @@ The postgresql database is used by the crm demo application to persist the data 
 * Optional with the following step the Red Hat Fuse console can be installed. 
 
     ```bash
-    oc new-app fuse72-console
+    oc new-app fuse70-console
     ```
 
 ## Running the crm application on Karaf Standalone
