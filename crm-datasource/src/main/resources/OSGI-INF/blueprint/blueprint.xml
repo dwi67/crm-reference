@@ -11,34 +11,16 @@
         <property name="password" value="admin"/>
     </bean>
 
-    <bean id="postgresDataSourceBeanXA" class="org.postgresql.ds.PGSimpleDataSource">
-        <property name="serverName" value="localhost"/>
-        <property name="portNumber" value="5432"/>
-        <property name="databaseName" value="sampledb"/>
-        <property name="user" value="admin"/>
-        <property name="password" value="admin"/>
-    </bean>
-
-    <service id="dataSourceService" interface="javax.sql.DataSource" ref="postgresDataSourceBean">
+    <service id="dataSourceServiceXA" interface="javax.sql.DataSource" ref="postgresDataSourceBean">
         <service-properties>
-            <entry key="osgi.jndi.service.name" value="jdbc/sqlDataSource" />
-        </service-properties>
-    </service>
-
-    <service id="dataSourceServiceXA" interface="javax.sql.DataSource" ref="postgresDataSourceBeanXA">
-        <service-properties>
+            <entry key="pool" value="dbcp2" />
             <entry key="osgi.jndi.service.name" value="jdbc/xaSqlDataSource" />
-            <entry key="aries.xa.name" value="xaSqlDataSource" />
-            <entry key="aries.xa.exceptionSorter" value="known" />
-            <entry key="aries.xa.pooling" value="true" />
-            <entry key="aries.xa.poolMaxSize" value="10" />
-            <entry key="aries.xa.poolMinSize" value="0" />
-            <entry key="aries.xa.transaction" value="xa" />
-            <entry key="aries.xa.partitionStrategy" value="none" />
-            <entry key="aries.xa.connectionMadIdleMinutes" value="15" />
-            <entry key="aries.xa.connectionMaxWaitMilliseconds" value="5000" />
-            <entry key="aries.xa.allConnectionsEquals" value="true" />
+            <entry key="pool.minIdle" value="2" />
+            <entry key="pool.maxTotal" value="10" />
+            <entry key="pool.blockWhenExhausted" value="true" />
+            <entry key="pool.maxWaitMillis" value="2000" />
         </service-properties>
     </service>
+
 
 </blueprint>

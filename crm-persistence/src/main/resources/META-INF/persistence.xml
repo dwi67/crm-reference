@@ -1,25 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.0"
-	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+			 xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			 xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
 	<persistence-unit name="customer-pu" transaction-type="JTA">
 
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-		
-		<class>ch.adesso.crm.persistence.entities.Customer</class>
-		
-		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 
 		<jta-data-source>osgi:service/javax.sql.DataSource/(osgi.jndi.service.name=jdbc/xaSqlDataSource)</jta-data-source>
-		<non-jta-data-source>osgi:service/javax.sql.DataSource/(osgi.jndi.service.name=jdbc/sqlDataSource)</non-jta-data-source>
+
+		<class>ch.adesso.crm.persistence.entities.Customer</class>
+
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 
 		<!-- Hibernate -->
 		<properties>
-			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL92Dialect" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL94Dialect" />
 			<property name="hibernate.show_sql" value="false" />
 			<property name="hibernate.format_sql" value="false" />
-      		<property name="hibernate.connection.pool_size" value="25" />
-			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="hibernate.connection.pool_size" value="25" />
 		</properties>
 	</persistence-unit>
 </persistence>

@@ -24,8 +24,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
 		<!-- configure the versions you want to use here -->
-		<fabric8.version>3.0.8.fuse-000023-redhat-4</fabric8.version>
-		<karaf.plugin.version>4.2.0.fuse-000191-redhat-1</karaf.plugin.version>
+		<fabric8.version>3.0.11.fuse-000065-redhat-3</fabric8.version>
+		<karaf.plugin.version>4.2.0.fuse-000280-redhat-4</karaf.plugin.version>
 
 		<maven-compiler-plugin.version>3.6.0</maven-compiler-plugin.version>
 		<maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
@@ -255,14 +255,20 @@
 						<feature>jaas</feature>
 						<feature>log</feature>
 						<feature>shell</feature>
+						<feature>management</feature>
 						<feature>aries-blueprint</feature>
+						<!-- Adds transaction support -->
 						<feature>transaction</feature>
-						<feature>connector</feature>
-						<feature>cxf-jaxws</feature>
+						<!-- End ssh support-->
+						<!-- Adds support for karaf ssh shell -->
+						<feature>service</feature>
+						<feature>bundle</feature>
+						<feature>feature</feature>
+						<feature>ssh</feature>
+						<!-- End ssh support-->
 						<feature>camel-blueprint</feature>
 						<feature>fabric8-karaf-blueprint</feature>
 						<feature>fabric8-karaf-checks</feature>
-						<feature>crm-on-openshift</feature>
 					</startupFeatures>
 					<startupBundles>
 						<bundle>mvn:${project.groupId}/${project.artifactId}/${project.version}</bundle>

@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Route
 metadata:
-  name: crms
+  name: crmscs
 spec:
   port:
     targetPort: tungsten-https

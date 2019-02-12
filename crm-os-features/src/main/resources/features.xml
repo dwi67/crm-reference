@@ -9,10 +9,11 @@
         <feature>jpa</feature>
         <feature>hibernate</feature>
         <feature>jndi</feature>
-        <feature>camel-amqp</feature>
-        <bundle>mvn:ch.adesso/crm-os-datasource/${project.version}</bundle> 
-        <bundle>mvn:org.postgresql/postgresql/9.4-1203-jdbc42</bundle>
-        <bundle>wrap:mvn:org.apache.derby/derbyclient/10.11.1.1</bundle>
+        <feature>jdbc</feature>
+        <feature>pax-jdbc-postgresql</feature>
+        <feature>pax-jdbc-config</feature>
+        <feature>pax-jdbc-pool-dbcp2</feature>
+        <bundle>mvn:ch.adesso/crm-os-datasource/${project.version}</bundle>
    </feature> 
  
 	<feature name="crm-service" version="${project.version}">
@@ -21,23 +22,18 @@
 	</feature>
   
 	<feature name="crm-soap" version="${project.version}">
+        <feature>cxf-jaxws</feature>
 		<bundle>mvn:ch.adesso/crm-ws/${project.version}</bundle>
 	</feature>
 
-<!--
 	<feature name="crm-rest" version="${project.version}">
+        <feature>cxf-rs-description-swagger2</feature>
 		<bundle>mvn:ch.adesso/crm-rs/${project.version}</bundle>
 	</feature>
-
-	<feature name="crm-import" version="${project.version}">
-		<bundle>mvn:ch.adesso/crm-camel/${project.version}</bundle>
-	</feature>    
--->
 
     <feature name="crm-proxy" version="${project.version}">
         <feature>camel-netty4-http</feature>
         <bundle>mvn:ch.adesso/crm-secureproxy/${project.version}</bundle>
     </feature>
-
 
 </features>

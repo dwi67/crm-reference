@@ -22,11 +22,12 @@
         <feature>hibernate</feature>
         <feature>transaction</feature>
         <feature>jndi</feature>
-        <feature>connector</feature>
+        <feature>jdbc</feature>
+        <feature>pax-jdbc-postgresql</feature>
+        <feature>pax-jdbc-config</feature>
+        <feature>pax-jdbc-pool-dbcp2</feature>
         <feature>camel-amqp</feature>
         <bundle>mvn:ch.adesso/crm-datasource/${project.version}</bundle>
-        <bundle>mvn:org.postgresql/postgresql/9.4-1203-jdbc42</bundle>
-        <bundle>wrap:mvn:org.apache.derby/derbyclient/10.11.1.1</bundle>
     </feature>
     
     <feature name="crm-service" version="${project.version}">
