@@ -1,9 +1,9 @@
-#CRM Demo for Fuse 7.2 on Karaf
+# CRM Demo for Fuse 7.2 on Karaf
 This project shows how to develop an application using Red Hat Fuse on Karaf. Both OpenShift based and standard deployments are supported. This project shows how to build applications with database access using the integrated postgreSQL database of the OpenShift platform.
 
-##Preparations for minishift deployments
+## Preparations for minishift deployments
 
-##Installation of minishift
+## Installation of minishift
 First install MiniShift on your computer for your platform
 
 * Start minishift with the following parameters
@@ -27,7 +27,7 @@ First install MiniShift on your computer for your platform
     minishift start
     ```
 
-##Installation of the OpenShift Red Hat Fuse templates
+## Installation of the OpenShift Red Hat Fuse templates
 
 It is required to install the current Red Hat Fuse templates first
 
@@ -41,7 +41,7 @@ It is required to install the current Red Hat Fuse templates first
     oc create -n openshift -f ${BASEURL}/fuse-apicurito.yml
     ```
 
-##Instalation of the PostgreSQL database
+## Instalation of the PostgreSQL database
 
 The postgresql database is used by the crm demo application to persist the data for both the standalone and OpenShift version. To install the database the following steps are required:
 
@@ -73,7 +73,7 @@ The postgresql database is used by the crm demo application to persist the data 
 
     - https://github.com/dwi67/crm-reference/blob/master/crm-os-datasource/schemas/schema.sql
     
-##Installation of the Red Hat Fuse management console
+## Installation of the Red Hat Fuse management console
 
 * Optional with the following step the Red Hat Fuse console can be installed. 
 
@@ -81,17 +81,17 @@ The postgresql database is used by the crm demo application to persist the data 
     oc new-app fuse72-console
     ```
 
-##Running the crm application on Karaf Standalone
+## Running the crm application on Karaf Standalone
 
 - Todo 
 
-##Running the crm application on OpenShift
+## Running the crm application on OpenShift
 
 - Todo 
 
-##Experimental
+## Experimental
 
-####Create a volume
+#### Create a volume
 
    ```bash
    minishift ssh -> Windows putty docker@192.168.64.7 Password: tcuser
@@ -100,7 +100,7 @@ The postgresql database is used by the crm demo application to persist the data 
    chmod 777 /opt/certs
    ```
 
-####Create pv und pvc (certs)
+#### Create pv und pvc (certs)
 
    ```bash
    oc login -u systemå:admin
@@ -109,14 +109,14 @@ The postgresql database is used by the crm demo application to persist the data 
    oc create -f certspvc.yaml
    ```
 
-####Copy profiles to the cert-volume
+#### Copy profiles to the cert-volume
 
    ```bash
    scp *.jks docker@192.168.64.7:/opt/certs -> Windows pscp
    Password: tcuser
    ```
 
-####Handling of templates
+#### Handling of templates
 
    ```bash
    oc get templates
