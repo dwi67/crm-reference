@@ -18,138 +18,8 @@
 	<name>crmosstarter</name>
 	<description>Starts the crm application in a Pod</description>
 
-	<!-- ******************************************** Custom Properties ******************************************** -->
-
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
-		<!-- configure the versions you want to use here -->
-		<fabric8.version>3.0.11.fuse-000065-redhat-3</fabric8.version>
-		<karaf.plugin.version>4.2.0.fuse-000280-redhat-4</karaf.plugin.version>
-
-		<maven-compiler-plugin.version>3.6.0</maven-compiler-plugin.version>
-		<maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
-		<maven-bundle-plugin.version>2.3.7</maven-bundle-plugin.version>
-		<maven-install-plugin.version>2.5.2</maven-install-plugin.version>
-		<fabric8.maven.plugin.version>3.5.33.fuse-000023-redhat-3</fabric8.maven.plugin.version>
-	</properties>
-	
-	<!-- **************************** Red Hat Repositories : for Fuse-specific packages **************************** -->
-   <repositories>
-        <repository>
-            <id>redhat-ga-repository</id>
-            <url>https://maven.repository.redhat.com/ga</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>redhat-ea-repository</id>
-            <url>https://maven.repository.redhat.com/earlyaccess/all</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>jboss-ea</id>
-            <url>https://repository.jboss.org/nexus/content/groups/ea</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>apache-snapshots-repository</id>
-            <url>https://repository.apache.org/content/groups/snapshots</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>daily</updatePolicy>
-            </snapshots>
-        </repository>
-        <repository>
-            <id>ops4j-snapshots-repository</id>
-            <url>https://oss.sonatype.org/content/repositories/ops4j-snapshots</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>redhat-ga-repository</id>
-            <url>https://maven.repository.redhat.com/ga</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </pluginRepository>
-        <pluginRepository>
-            <id>redhat-ea-repository</id>
-            <url>https://maven.repository.redhat.com/earlyaccess/all</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </pluginRepository>
-        <pluginRepository>
-            <id>jboss-ea</id>
-            <url>https://repository.jboss.org/nexus/content/groups/ea</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </pluginRepository>
-        <pluginRepository>
-            <id>apache-snapshots-repository</id>
-            <url>https://repository.apache.org/content/groups/snapshots</url>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>interval:120</updatePolicy>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
-
 	<!-- *********************************************** Dependencies ********************************************** -->
-
-	<dependencyManagement>
-		<dependencies>
-			<!-- import fabric8 platform bom first -->
-			<dependency>
-				<groupId>io.fabric8</groupId>
-				<artifactId>fabric8-project-bom-fuse-karaf</artifactId>
-				<version>${fabric8.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
-
 	<dependencies>
-
 		<!-- camel -->
 		<dependency>
 			<groupId>org.apache.camel</groupId>
@@ -197,13 +67,15 @@
 		<defaultGoal>install</defaultGoal>
 
 		<plugins>
-
+			<!-- Maven Compiler Plugin -->
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>${maven-compiler-plugin.version}</version>
+				<version>${maven.compiler.plugin.version}</version>
 				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
+					<source>${sources.version}</source>
+					<target>${target.version}</target>
+					<encoding>${sources.encoding}</encoding>
 				</configuration>
 			</plugin>
 
