@@ -52,7 +52,7 @@
         <configfile finalname="/etc/fusecerts/keystore.jks" override="true">mvn:ch.adesso/crm-secureproxy/${project.version}/keystore</configfile>
         <configfile finalname="/etc/fusecerts/truststore.jks" override="true">mvn:ch.adesso/crm-secureproxy/${project.version}/truststore</configfile>
         <configfile finalname="/etc/ch.adesso.crm.secureproxy.gateway.https.cfg" override="true">mvn:ch.adesso/crm-secureproxy/${project.version}/properties</configfile>
-        <feature version="">camel-netty4-http</feature>
+        <feature>camel-netty4-http</feature>
         <bundle>mvn:ch.adesso/crm-secureproxy/${project.version}</bundle>
     </feature>
 
