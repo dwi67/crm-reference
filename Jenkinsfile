@@ -1,57 +1,47 @@
-#!/usr/bin/groovy
-@Library('github.com/fabric8io/fabric8-pipeline-library@master')
-def canaryVersion = "1.0.${env.BUILD_NUMBER}"
-def utils = new io.fabric8.Utils()
-def stashName = "buildpod.${env.JOB_NAME}.${env.BUILD_NUMBER}".replace('-', '_').replace('/', '_')
-def envStage = utils.environmentNamespace('stage')
-def envProd = utils.environmentNamespace('run')
+node {
+  jdk = tool name: 'JDK8'
+  env.JAVA_HOME = "${jdk}"
 
-mavenNode {
-  checkout scm
-  if (utils.isCI()){
+  echo "jdk installation path is: ${jdk}"
 
-    mavenCI{}
-    
-  } else if (utils.isCD()){
-    echo 'NOTE: running pipelines for the first time will take longer as build and base docker images are pulled onto the node'
-    container(name: 'maven') {
+  // next 2 are equivalents
+  sh "${jdk}/bin/java -version"
 
-      stage('Build Release'){
-        mavenCanaryRelease {
-          version = canaryVersion
-        }
-        //stash deployment manifests
-        stash includes: '**/*.yml', name: stashName
-      }
+  // note that simple quote strings are not evaluated by Groovy
+  // substitution is done by shell script using environment
+  sh '$JAVA_HOME/bin/java -version'
 
-      stage('Rollout to Stage'){
-        apply{
-          environment = envStage
-        }
-      }
+  def mvnHome
+
+  stage('Preparation') {
+
+    // for display purposes
+    // Get some code from a GitHub repository
+    git 'https://github.com/dwi67/crm-reference.git'
+
+    // Get the Maven tool.
+    // ** NOTE: This 'M3' Maven tool must be configured
+    // **       in the global configuration.
+    mvnHome = tool 'M3'
+  }
+
+  stage('Build') {
+    // Run the maven build
+    if (isUnix()) {
+      sh "'${mvnHome}/bin/mvn' -Dmaven.test.failure.ignore clean install"
+    } else {
+      bat(/"${mvnHome}\bin\mvn" -Dmaven.test.failure.ignore clean install/)
     }
   }
-}
 
-if (utils.isCD()){
-  node {
-    stage('Approve'){
-       approve {
-         room = null
-         version = canaryVersion
-         environment = 'Stage'
-       }
-     }
+  stage('Results') {
+    junit '**/target/surefire-reports/TEST-*.xml'
+    archive 'target/*.jar'
   }
 
-  clientsNode{
-    container(name: 'clients') {
-      stage('Rollout to Run'){
-        unstash stashName
-        apply{
-          environment = envProd
-        }
-      }
+  stage('Deploy') {
+    dir("crm-os-starter") {
+      sh "'${mvnHome}/bin/mvn' fabric8:deploy"
     }
   }
 }
