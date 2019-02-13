@@ -121,4 +121,12 @@ The postgresql database is used by the crm demo application to persist the data 
    oc get templates
    oc process --parameters -n openshift fuse72-console
    ```
+
+#### Jenkins
+
+To support the jenkins pipeline add the admin role to myproject
+
+   ```bash
+    oc adm policy add-role-to-user admin system:serviceaccount:myproject:default
+   ```
     
