@@ -31,13 +31,14 @@ First install MiniShift on your computer for your platform
 
 It is required to install the current Red Hat Fuse templates first
 
-* Login as system admin and create templates
+* Login as system admin and create the Red Hat Fuse 7.2 templates
         
     ```bash
     oc login -u system:admin
-    BASEURL=https://raw.githubusercontent.com/jboss-fuse/application-templates/application-templates-2.1.fuse-000099-redhat-5
+    BASEURL=https://raw.githubusercontent.com/jboss-fuse/application-templates/application-templates-2.1.fuse-720018-redhat-00001
     oc create -n openshift -f ${BASEURL}/fis-image-streams.json
-    oc create -n openshift -f https://raw.githubusercontent.com/jboss-fuse/application-templates/application-templates-2.1.fuse-000099-redhat-5/fis-console-namespace-template.json
+    oc create -n openshift -f https://raw.githubusercontent.com/jboss-fuse/application-templates/application-templates-2.1.fuse-720018-redhat-00001/fis-console-namespace-template.json
+    oc create -n openshift -f ${BASEURL}/fuse-apicurito.yml
     ```
 
 ## Instalation of the PostgreSQL database
