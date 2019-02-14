@@ -96,17 +96,49 @@ You can add Jenkins to openshift to build and deploy the project with jenkins
 
 To support the fabric8 deploy add the admin role to myproject
 
-    ```bash
-    oc adm policy add-role-to-user admin system:serviceaccount:myproject:default
-    ```
+   ```bash
+   oc adm policy add-role-to-user admin system:serviceaccount:myproject:default
+   ```
     
 ## Running the crm application on Karaf Standalone
 
-- Todo 
+* Build the application using maven (project root)
 
-## Running the crm application on OpenShift
+   ```bash
+   mvn clean install
+   ```
 
-- Todo 
+* Download and start Red Hat Fuse 7.2
+
+* On the Fuse console install the features (be aware that postgesql must be running)
+
+   ```bash
+   features:addurl mvn:ch.adesso/crm-features/1.0.0-SNAPSHOT/xml/features 
+   features:install crm-standalone
+   ```
+
+## Running the crm application on OpenShift manually
+
+* Be aware that the fuse templates for openshift must be installed
+
+* Build the application using maven (project root)
+
+   ```bash
+   mvn clean install
+   ```
+
+* Deploy the application (project crm-os-starter)
+
+   ```bash
+   cd crm-os-starter
+   mvn clean fabric8:deploy
+   ```
+
+* To uneploy the application:
+
+   ```bash
+   mvn clean fabric8:undeploy
+   ```
 
 ## Experimental
 
