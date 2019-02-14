@@ -16,10 +16,19 @@
     <!-- ******************************************** Custom Properties ******************************************** -->
     <properties>
         <jboss.fuse.bom.version>7.2.0.fuse-720035-redhat-00001</jboss.fuse.bom.version>
-        <fabric8.version>3.0.11.fuse-000065-redhat-3</fabric8.version>
-        <karaf.plugin.version>4.2.0.fuse-000280-redhat-4</karaf.plugin.version>
-        <fabric8.maven.plugin.version>3.5.33.fuse-000023-redhat-3</fabric8.maven.plugin.version>
+        <fabric8.version>3.0.11.fuse-720027-redhat-00001</fabric8.version>
+        <karaf.plugin.version>4.2.0.fuse-720061-redhat-00001</karaf.plugin.version>
+        <fabric8.maven.plugin.version>3.5.42</fabric8.maven.plugin.version>
+<!--
+        KARAF 4.2.0.fuse-720061-redhat-00001 -> Works, but is not using the official OpenShift-Images from Red Hat
+        <fabric8.maven.plugin.version>3.5.42</fabric8.maven.plugin.version>
 
+        FUSE 7.2 -> Not working
+        <fabric8.maven.plugin.version>3.5.33.fuse-720026-redhat-00001</fabric8.maven.plugin.version>
+
+        FUSE 7.0 -> Works, but uses older OpenShift templates
+        <fabric8.maven.plugin.version>3.5.33.fuse-000023-redhat-3</fabric8.maven.plugin.version>
+-->
         <!-- Maven Plugin Versions -->
         <maven.compiler.plugin.version>3.6.0</maven.compiler.plugin.version>
         <maven.resources.plugin.version>2.7</maven.resources.plugin.version>
@@ -145,7 +154,15 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
+            <!--
+            <dependency>
+                <groupId>org.jboss.redhat-fuse</groupId>
+                <artifactId>fuse-karaf-bom</artifactId>
+                <version>${jboss.fuse.bom.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+              -->
             <dependency>
                 <groupId>org.jboss.fuse</groupId>
                 <artifactId>jboss-fuse-parent</artifactId>
