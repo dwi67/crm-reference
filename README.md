@@ -80,26 +80,6 @@ The postgresql database is used by the crm demo application to persist the data 
     oc new-app fuse70-console
     ```
 
-## Jenkins Pipeline Build
-
-You can add Jenkins to openshift to build and deploy the project with jenkins
-
-* To add jenkins use the following command
-
-   ```bash
-   oc new-app -e JENKINS_PASSWORD=admin openshift/jenkins-2-centos7
-   ```
-
-* Create a route to access jenkins
-
-   You can login into jenkins with admin/admin 
-
-To support the fabric8 deploy add the admin role to myproject
-
-   ```bash
-   oc adm policy add-role-to-user admin system:serviceaccount:myproject:default
-   ```
-    
 ## Running the crm application on Karaf Standalone
 
 * Build the application using maven (project root)
@@ -134,12 +114,32 @@ To support the fabric8 deploy add the admin role to myproject
    mvn clean fabric8:deploy
    ```
 
-* To uneploy the application:
+* To undeploy the application:
 
    ```bash
    mvn clean fabric8:undeploy
    ```
+   
+## Automate the deployment using the Jenkins pipelines
 
+You can add Jenkins to openshift to build and deploy the project with jenkins
+
+* To add jenkins use the following command
+
+   ```bash
+   oc new-app -e JENKINS_PASSWORD=admin openshift/jenkins-2-centos7
+   ```
+
+* Create a route to access jenkins
+
+   You can login into jenkins with admin/admin 
+
+To support the fabric8 deploy add the admin role to myproject
+
+   ```bash
+   oc adm policy add-role-to-user admin system:serviceaccount:myproject:default
+   ```
+    
 ## Experimental
 
 #### Create a volume
